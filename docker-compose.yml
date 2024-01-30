@@ -1,0 +1,5 @@
+version: "3"
+services:
+  php-dev-tools:
+    image: dsvj/php-cli-tools
+    build: .
