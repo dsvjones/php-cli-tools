@@ -8,7 +8,6 @@ RUN apk add --no-cache $PHPIZE_DEPS  \
 
 WORKDIR /home/www-data
 
-RUN docker-php-ext-install opcache
 RUN docker-php-ext-configure intl && docker-php-ext-install intl
 
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | bash
