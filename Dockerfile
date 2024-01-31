@@ -4,11 +4,13 @@ RUN apk update && apk upgrade
 RUN apk add --no-cache $PHPIZE_DEPS  \
         bash \
         icu-dev \
-        curl
+        curl \
+        libzip-dev
 
 WORKDIR /home/www-data
 
 RUN docker-php-ext-configure intl && docker-php-ext-install intl
+RUN docker-php-ext-install zip
 
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | bash
 RUN apk add symfony-cli
