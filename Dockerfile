@@ -4,9 +4,10 @@ FROM php:7.4-cli
 RUN apt update && apt upgrade -y
 
 RUN apt install -y zlib1g-dev libpng-dev libicu-dev libzip-dev \
-    zip wget curl libc-client-dev libkrb5-dev \
+    zip curl libc-client-dev libkrb5-dev \
     libldap2-dev libxml2-dev
 
+# Install PHP Modules
 RUN docker-php-ext-configure gd && docker-php-ext-install gd && docker-php-ext-install exif
 RUN docker-php-ext-configure intl && docker-php-ext-install intl && docker-php-ext-install zip 
 RUN docker-php-ext-install opcache
@@ -16,12 +17,16 @@ RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
 RUN docker-php-ext-configure ldap && docker-php-ext-install ldap
 RUN docker-php-ext-install soap
 
+# Cleanup
 RUN rm -rf /usr/src/php/*
 
+# Install Symfony CLI
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
 RUN apt install -y symfony-cli
 
+# Copy Conf Files
 COPY ./conf/php.ini /usr/local/etc/php/php.ini
 COPY ./conf/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-   
+
+# Install Composer   
 COPY --from=composer/composer:latest-bin /composer /usr/bin/composer

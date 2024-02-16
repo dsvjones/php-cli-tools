@@ -15,11 +15,14 @@ Tools:
 - Symfony CLI
 - Composer CLI
 - PHP
-  - PHP v8.3
+  - PHP v7.4
 
 Added PHP Extensions:
+- opcache
 - intl
-- op_cache
+- imap
+- soap
+- gd
 
 Notes:
-  The .env file is curerntly unused.
+  The .env file is currently unused.
